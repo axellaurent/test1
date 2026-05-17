@@ -14,9 +14,12 @@ string SYM5 = "NYSE:SPY"
 // ─── Helper: fmt_vol ─────────────────────────────────────────────────────────
 
 fmt_vol(float v) =>
-    v >= 1e9 ? str.tostring(v / 1e9, "#.##") + "B" :
-    v >= 1e6 ? str.tostring(v / 1e6, "#.##") + "M" :
-               str.tostring(v, "#,###")
+    if v >= 1e9
+        str.tostring(v / 1e9, "#.##") + "B"
+    else if v >= 1e6
+        str.tostring(v / 1e6, "#.##") + "M"
+    else
+        str.tostring(v, "#,###")
 
 // ─── Helper: state_transition ────────────────────────────────────────────────
 // Returns the new state.  Fires alert() as a side effect when State 2→3.
@@ -75,16 +78,24 @@ if new_12h_bar
 // ─── Status Table ────────────────────────────────────────────────────────────
 
 state_color(int st) =>
-    st == 1 ? color.red    :
-    st == 2 ? color.orange :
-    st == 3 ? color.green  :
-              color.gray
+    if st == 1
+        color.red
+    else if st == 2
+        color.orange
+    else if st == 3
+        color.green
+    else
+        color.gray
 
 state_label(int st) =>
-    st == 0 ? "Waiting"    :
-    st == 1 ? "Oversold"   :
-    st == 2 ? "Recovering" :
-              "Confirmed"
+    if st == 0
+        "Waiting"
+    else if st == 1
+        "Oversold"
+    else if st == 2
+        "Recovering"
+    else
+        "Confirmed"
 
 var table tbl = table.new(position.top_right, 3, 6,
      bgcolor      = color.rgb(20, 20, 20),

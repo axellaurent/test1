@@ -49,9 +49,12 @@ string i35 = input.string("",                 title="Symbol 35")
 // ─── Helper: fmt_vol ─────────────────────────────────────────────────────────
 
 fmt_vol(float v) =>
-    v >= 1e9 ? str.tostring(v / 1e9, "#.##") + "B" :
-    v >= 1e6 ? str.tostring(v / 1e6, "#.##") + "M" :
-               str.tostring(v, "#,###")
+    if v >= 1e9
+        str.tostring(v / 1e9, "#.##") + "B"
+    else if v >= 1e6
+        str.tostring(v / 1e6, "#.##") + "M"
+    else
+        str.tostring(v, "#,###")
 
 // ─── Helper: state_transition ────────────────────────────────────────────────
 

@@ -7,9 +7,12 @@ indicator("RSI Recovery Scanner — OKX (15 USDT pairs)", overlay=false, max_bar
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
 fmt_vol(float v) =>
-    v >= 1e9 ? str.tostring(v / 1e9, "#.##") + "B" :
-    v >= 1e6 ? str.tostring(v / 1e6, "#.##") + "M" :
-               str.tostring(v, "#,###")
+    if v >= 1e9
+        str.tostring(v / 1e9, "#.##") + "B"
+    else if v >= 1e6
+        str.tostring(v / 1e6, "#.##") + "M"
+    else
+        str.tostring(v, "#,###")
 
 state_transition(int st, float rsi, float vol, string sym) =>
     int ns = st

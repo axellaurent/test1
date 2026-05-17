@@ -17,6 +17,16 @@ indicator("RSI Recovery Scanner — Phase 1 (Single Symbol)", overlay=false, max
 //   3 stays  RSI > 30
 // ─────────────────────────────────────────────────────────────────────────────
 
+// ─── Helper: fmt_vol ─────────────────────────────────────────────────────────
+
+fmt_vol(float v) =>
+    if v >= 1e9
+        str.tostring(v / 1e9, "#.##") + "B"
+    else if v >= 1e6
+        str.tostring(v / 1e6, "#.##") + "M"
+    else
+        str.tostring(v, "#,###")
+
 // ─── 12H Data ────────────────────────────────────────────────────────────────
 
 [rsi_12h, vol_12h] = request.security(
@@ -44,9 +54,7 @@ if new_12h_bar and not na(rsi_12h)
 
     else if state == 2
         if rsi_12h > 30
-            vol_str = vol_12h >= 1e9 ? str.tostring(vol_12h / 1e9, "#.##") + "B" :
-                      vol_12h >= 1e6 ? str.tostring(vol_12h / 1e6, "#.##") + "M" :
-                                       str.tostring(vol_12h, "#,###")
+            vol_str = fmt_vol(vol_12h)
             msg = "RSI Recovery | " + syminfo.tickerid +
                   " | 12H | RSI: "  + str.tostring(rsi_12h, "#.##") +
                   " | Vol(12H): $"  + vol_str +
@@ -68,12 +76,8 @@ hline(30, "Oversold",   color=color.red,   linestyle=hline.style_dashed)
 hline(70, "Overbought", color=color.green, linestyle=hline.style_dashed)
 hline(50, "Midline",    color=color.gray,  linestyle=hline.style_dotted)
 
-bgcolor(
-  state == 1 ? color.new(color.red,    85) :
-  state == 2 ? color.new(color.yellow, 85) :
-  state == 3 ? color.new(color.green,  85) :
-               color.new(color.gray,   92),
-  title = "State Background")
+bg = state == 1 ? color.new(color.red,85) : state == 2 ? color.new(color.yellow,85) : state == 3 ? color.new(color.green,85) : color.new(color.gray,92)
+bgcolor(bg, title="State Background")
 
 // Label on the last bar showing current state and RSI
 var label status_lbl = na
