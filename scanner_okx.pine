@@ -1,0 +1,111 @@
+//@version=5
+indicator("RSI Recovery Scanner — OKX (15 USDT pairs)", overlay=false, max_bars_back=500)
+
+// 15 high-volume OKX USDT pairs  (all above $1M USD daily volume)
+// Request count: 15  |  Free plan limit: 40  |  Headroom: 25
+
+// ─── Helpers ─────────────────────────────────────────────────────────────────
+
+fmt_vol(float v) =>
+    v >= 1e9 ? str.tostring(v / 1e9, "#.##") + "B" :
+    v >= 1e6 ? str.tostring(v / 1e6, "#.##") + "M" :
+               str.tostring(v, "#,###")
+
+state_transition(int st, float rsi, float vol, string sym) =>
+    int ns = st
+    if not na(rsi)
+        if st == 0
+            if rsi <= 30
+                ns := 1
+        else if st == 1
+            ns := rsi > 30 ? 2 : 1
+        else if st == 2
+            if rsi > 30
+                msg = "RSI Recovery | " + sym +
+                      " | 12H | RSI: " + str.tostring(rsi, "#.##") +
+                      " | Vol(12H): $" + fmt_vol(vol) +
+                      " | SIGNAL: Confirmed Recovery" +
+                      " | Bar: " + str.format_time(time, "yyyy-MM-dd HH:mm", "UTC") + " UTC"
+                alert(msg, alert.freq_once_per_bar_close)
+                ns := 3
+            else
+                ns := 1
+        else if st == 3
+            if rsi <= 30
+                ns := 1
+    ns
+
+// ─── 12H RSI + Volume ────────────────────────────────────────────────────────
+
+[r01,v01] = request.security("OKX:BTCUSDT",  "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
+[r02,v02] = request.security("OKX:ETHUSDT",  "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
+[r03,v03] = request.security("OKX:SOLUSDT",  "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
+[r04,v04] = request.security("OKX:XRPUSDT",  "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
+[r05,v05] = request.security("OKX:DOGEUSDT", "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
+[r06,v06] = request.security("OKX:ADAUSDT",  "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
+[r07,v07] = request.security("OKX:AVAXUSDT", "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
+[r08,v08] = request.security("OKX:DOTUSDT",  "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
+[r09,v09] = request.security("OKX:LINKUSDT", "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
+[r10,v10] = request.security("OKX:UNIUSDT",  "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
+[r11,v11] = request.security("OKX:ATOMUSDT", "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
+[r12,v12] = request.security("OKX:NEARUSDT", "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
+[r13,v13] = request.security("OKX:APTUSDT",  "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
+[r14,v14] = request.security("OKX:ARBUSDT",  "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
+[r15,v15] = request.security("OKX:OPUSDT",   "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
+
+// ─── State Variables ─────────────────────────────────────────────────────────
+
+var int s01=0, var int s02=0, var int s03=0, var int s04=0, var int s05=0
+var int s06=0, var int s07=0, var int s08=0, var int s09=0, var int s10=0
+var int s11=0, var int s12=0, var int s13=0, var int s14=0, var int s15=0
+
+// ─── State Updates ───────────────────────────────────────────────────────────
+
+new_12h_bar = ta.change(time("720")) != 0
+
+if new_12h_bar
+    s01:=state_transition(s01,r01,v01,"OKX:BTCUSDT")
+    s02:=state_transition(s02,r02,v02,"OKX:ETHUSDT")
+    s03:=state_transition(s03,r03,v03,"OKX:SOLUSDT")
+    s04:=state_transition(s04,r04,v04,"OKX:XRPUSDT")
+    s05:=state_transition(s05,r05,v05,"OKX:DOGEUSDT")
+    s06:=state_transition(s06,r06,v06,"OKX:ADAUSDT")
+    s07:=state_transition(s07,r07,v07,"OKX:AVAXUSDT")
+    s08:=state_transition(s08,r08,v08,"OKX:DOTUSDT")
+    s09:=state_transition(s09,r09,v09,"OKX:LINKUSDT")
+    s10:=state_transition(s10,r10,v10,"OKX:UNIUSDT")
+    s11:=state_transition(s11,r11,v11,"OKX:ATOMUSDT")
+    s12:=state_transition(s12,r12,v12,"OKX:NEARUSDT")
+    s13:=state_transition(s13,r13,v13,"OKX:APTUSDT")
+    s14:=state_transition(s14,r14,v14,"OKX:ARBUSDT")
+    s15:=state_transition(s15,r15,v15,"OKX:OPUSDT")
+
+// ─── Status Table ────────────────────────────────────────────────────────────
+
+state_clr(int st) =>
+    st==1?color.red : st==2?color.orange : st==3?color.green : color.gray
+
+state_lbl(int st) =>
+    st==0?"Wait" : st==1?"Ovrsld" : st==2?"Recov" : "Confmd"
+
+var table tbl = table.new(position.top_right, 3, 16,
+     bgcolor=color.rgb(20,20,20), border_color=color.gray, border_width=1)
+
+if barstate.islast
+    table.cell(tbl,0,0,"Symbol (OKX)",text_color=color.gray,text_size=size.small,bgcolor=color.rgb(40,40,40))
+    table.cell(tbl,1,0,"State",       text_color=color.gray,text_size=size.small,bgcolor=color.rgb(40,40,40))
+    table.cell(tbl,2,0,"RSI 12H",     text_color=color.gray,text_size=size.small,bgcolor=color.rgb(40,40,40))
+
+    tickers = array.from("BTCUSDT","ETHUSDT","SOLUSDT","XRPUSDT","DOGEUSDT",
+                         "ADAUSDT","AVAXUSDT","DOTUSDT","LINKUSDT","UNIUSDT",
+                         "ATOMUSDT","NEARUSDT","APTUSDT","ARBUSDT","OPUSDT")
+    sts  = array.from(s01,s02,s03,s04,s05,s06,s07,s08,s09,s10,s11,s12,s13,s14,s15)
+    rsis = array.from(r01,r02,r03,r04,r05,r06,r07,r08,r09,r10,r11,r12,r13,r14,r15)
+
+    for i = 0 to 14
+        st  = array.get(sts,  i)
+        rsi = array.get(rsis, i)
+        table.cell(tbl,0,i+1,array.get(tickers,i), text_color=color.white,   text_size=size.tiny)
+        table.cell(tbl,1,i+1,state_lbl(st),        text_color=state_clr(st), text_size=size.tiny)
+        table.cell(tbl,2,i+1,not na(rsi)?str.tostring(rsi,"#.#"):"n/a",
+             text_color=color.white, text_size=size.tiny)

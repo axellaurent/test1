@@ -1,0 +1,193 @@
+//@version=5
+indicator("RSI Recovery Scanner — Phase 3 Template (up to 35 symbols)", overlay=false, max_bars_back=500)
+
+// ─────────────────────────────────────────────────────────────────────────────
+//  TEMPLATE — Copy this file and replace input defaults with your symbol list.
+//  Leave unused slots as empty strings "".
+//  Each non-empty slot costs one request.security() call.
+//  TradingView allows up to 40 per script (free plan); stay at ≤35 for headroom.
+// ─────────────────────────────────────────────────────────────────────────────
+
+// ─── Symbol Inputs ────────────────────────────────────────────────────────────
+
+string i01 = input.string("BINANCE:BTCUSDT",  title="Symbol 01")
+string i02 = input.string("BINANCE:ETHUSDT",  title="Symbol 02")
+string i03 = input.string("BINANCE:SOLUSDT",  title="Symbol 03")
+string i04 = input.string("BINANCE:BNBUSDT",  title="Symbol 04")
+string i05 = input.string("BINANCE:XRPUSDT",  title="Symbol 05")
+string i06 = input.string("",                 title="Symbol 06")
+string i07 = input.string("",                 title="Symbol 07")
+string i08 = input.string("",                 title="Symbol 08")
+string i09 = input.string("",                 title="Symbol 09")
+string i10 = input.string("",                 title="Symbol 10")
+string i11 = input.string("",                 title="Symbol 11")
+string i12 = input.string("",                 title="Symbol 12")
+string i13 = input.string("",                 title="Symbol 13")
+string i14 = input.string("",                 title="Symbol 14")
+string i15 = input.string("",                 title="Symbol 15")
+string i16 = input.string("",                 title="Symbol 16")
+string i17 = input.string("",                 title="Symbol 17")
+string i18 = input.string("",                 title="Symbol 18")
+string i19 = input.string("",                 title="Symbol 19")
+string i20 = input.string("",                 title="Symbol 20")
+string i21 = input.string("",                 title="Symbol 21")
+string i22 = input.string("",                 title="Symbol 22")
+string i23 = input.string("",                 title="Symbol 23")
+string i24 = input.string("",                 title="Symbol 24")
+string i25 = input.string("",                 title="Symbol 25")
+string i26 = input.string("",                 title="Symbol 26")
+string i27 = input.string("",                 title="Symbol 27")
+string i28 = input.string("",                 title="Symbol 28")
+string i29 = input.string("",                 title="Symbol 29")
+string i30 = input.string("",                 title="Symbol 30")
+string i31 = input.string("",                 title="Symbol 31")
+string i32 = input.string("",                 title="Symbol 32")
+string i33 = input.string("",                 title="Symbol 33")
+string i34 = input.string("",                 title="Symbol 34")
+string i35 = input.string("",                 title="Symbol 35")
+
+// ─── Helper: fmt_vol ─────────────────────────────────────────────────────────
+
+fmt_vol(float v) =>
+    v >= 1e9 ? str.tostring(v / 1e9, "#.##") + "B" :
+    v >= 1e6 ? str.tostring(v / 1e6, "#.##") + "M" :
+               str.tostring(v, "#,###")
+
+// ─── Helper: state_transition ────────────────────────────────────────────────
+
+state_transition(int st, float rsi, float vol, string sym) =>
+    int ns = st
+    if sym != "" and not na(rsi)
+        if st == 0
+            if rsi <= 30
+                ns := 1
+        else if st == 1
+            ns := rsi > 30 ? 2 : 1
+        else if st == 2
+            if rsi > 30
+                msg = "RSI Recovery | " + sym +
+                      " | 12H | RSI: " + str.tostring(rsi, "#.##") +
+                      " | Vol(12H): $" + fmt_vol(vol) +
+                      " | SIGNAL: Confirmed Recovery" +
+                      " | Bar: " + str.format_time(time, "yyyy-MM-dd HH:mm", "UTC") + " UTC"
+                alert(msg, alert.freq_once_per_bar_close)
+                ns := 3
+            else
+                ns := 1
+        else if st == 3
+            if rsi <= 30
+                ns := 1
+    ns
+
+// ─── 12H RSI + Volume Fetches ─────────────────────────────────────────────────
+// All request.security() calls must be unconditional (not inside if/for blocks).
+// Empty-string slots return na and are ignored by state_transition.
+
+[r01,v01] = request.security(i01!=""?i01:"BINANCE:BTCUSDT","720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
+[r02,v02] = request.security(i02!=""?i02:"BINANCE:BTCUSDT","720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
+[r03,v03] = request.security(i03!=""?i03:"BINANCE:BTCUSDT","720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
+[r04,v04] = request.security(i04!=""?i04:"BINANCE:BTCUSDT","720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
+[r05,v05] = request.security(i05!=""?i05:"BINANCE:BTCUSDT","720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
+[r06,v06] = request.security(i06!=""?i06:"BINANCE:BTCUSDT","720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
+[r07,v07] = request.security(i07!=""?i07:"BINANCE:BTCUSDT","720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
+[r08,v08] = request.security(i08!=""?i08:"BINANCE:BTCUSDT","720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
+[r09,v09] = request.security(i09!=""?i09:"BINANCE:BTCUSDT","720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
+[r10,v10] = request.security(i10!=""?i10:"BINANCE:BTCUSDT","720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
+[r11,v11] = request.security(i11!=""?i11:"BINANCE:BTCUSDT","720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
+[r12,v12] = request.security(i12!=""?i12:"BINANCE:BTCUSDT","720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
+[r13,v13] = request.security(i13!=""?i13:"BINANCE:BTCUSDT","720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
+[r14,v14] = request.security(i14!=""?i14:"BINANCE:BTCUSDT","720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
+[r15,v15] = request.security(i15!=""?i15:"BINANCE:BTCUSDT","720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
+[r16,v16] = request.security(i16!=""?i16:"BINANCE:BTCUSDT","720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
+[r17,v17] = request.security(i17!=""?i17:"BINANCE:BTCUSDT","720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
+[r18,v18] = request.security(i18!=""?i18:"BINANCE:BTCUSDT","720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
+[r19,v19] = request.security(i19!=""?i19:"BINANCE:BTCUSDT","720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
+[r20,v20] = request.security(i20!=""?i20:"BINANCE:BTCUSDT","720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
+[r21,v21] = request.security(i21!=""?i21:"BINANCE:BTCUSDT","720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
+[r22,v22] = request.security(i22!=""?i22:"BINANCE:BTCUSDT","720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
+[r23,v23] = request.security(i23!=""?i23:"BINANCE:BTCUSDT","720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
+[r24,v24] = request.security(i24!=""?i24:"BINANCE:BTCUSDT","720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
+[r25,v25] = request.security(i25!=""?i25:"BINANCE:BTCUSDT","720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
+[r26,v26] = request.security(i26!=""?i26:"BINANCE:BTCUSDT","720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
+[r27,v27] = request.security(i27!=""?i27:"BINANCE:BTCUSDT","720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
+[r28,v28] = request.security(i28!=""?i28:"BINANCE:BTCUSDT","720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
+[r29,v29] = request.security(i29!=""?i29:"BINANCE:BTCUSDT","720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
+[r30,v30] = request.security(i30!=""?i30:"BINANCE:BTCUSDT","720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
+[r31,v31] = request.security(i31!=""?i31:"BINANCE:BTCUSDT","720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
+[r32,v32] = request.security(i32!=""?i32:"BINANCE:BTCUSDT","720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
+[r33,v33] = request.security(i33!=""?i33:"BINANCE:BTCUSDT","720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
+[r34,v34] = request.security(i34!=""?i34:"BINANCE:BTCUSDT","720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
+[r35,v35] = request.security(i35!=""?i35:"BINANCE:BTCUSDT","720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
+
+// ─── Per-Symbol State Variables ───────────────────────────────────────────────
+
+var int s01=0, var int s02=0, var int s03=0, var int s04=0, var int s05=0
+var int s06=0, var int s07=0, var int s08=0, var int s09=0, var int s10=0
+var int s11=0, var int s12=0, var int s13=0, var int s14=0, var int s15=0
+var int s16=0, var int s17=0, var int s18=0, var int s19=0, var int s20=0
+var int s21=0, var int s22=0, var int s23=0, var int s24=0, var int s25=0
+var int s26=0, var int s27=0, var int s28=0, var int s29=0, var int s30=0
+var int s31=0, var int s32=0, var int s33=0, var int s34=0, var int s35=0
+
+// ─── State Updates (gated on confirmed 12H bar close) ─────────────────────────
+
+new_12h_bar = ta.change(time("720")) != 0
+
+if new_12h_bar
+    s01:=state_transition(s01,r01,v01,i01) , s02:=state_transition(s02,r02,v02,i02)
+    s03:=state_transition(s03,r03,v03,i03) , s04:=state_transition(s04,r04,v04,i04)
+    s05:=state_transition(s05,r05,v05,i05) , s06:=state_transition(s06,r06,v06,i06)
+    s07:=state_transition(s07,r07,v07,i07) , s08:=state_transition(s08,r08,v08,i08)
+    s09:=state_transition(s09,r09,v09,i09) , s10:=state_transition(s10,r10,v10,i10)
+    s11:=state_transition(s11,r11,v11,i11) , s12:=state_transition(s12,r12,v12,i12)
+    s13:=state_transition(s13,r13,v13,i13) , s14:=state_transition(s14,r14,v14,i14)
+    s15:=state_transition(s15,r15,v15,i15) , s16:=state_transition(s16,r16,v16,i16)
+    s17:=state_transition(s17,r17,v17,i17) , s18:=state_transition(s18,r18,v18,i18)
+    s19:=state_transition(s19,r19,v19,i19) , s20:=state_transition(s20,r20,v20,i20)
+    s21:=state_transition(s21,r21,v21,i21) , s22:=state_transition(s22,r22,v22,i22)
+    s23:=state_transition(s23,r23,v23,i23) , s24:=state_transition(s24,r24,v24,i24)
+    s25:=state_transition(s25,r25,v25,i25) , s26:=state_transition(s26,r26,v26,i26)
+    s27:=state_transition(s27,r27,v27,i27) , s28:=state_transition(s28,r28,v28,i28)
+    s29:=state_transition(s29,r29,v29,i29) , s30:=state_transition(s30,r30,v30,i30)
+    s31:=state_transition(s31,r31,v31,i31) , s32:=state_transition(s32,r32,v32,i32)
+    s33:=state_transition(s33,r33,v33,i33) , s34:=state_transition(s34,r34,v34,i34)
+    s35:=state_transition(s35,r35,v35,i35)
+
+// ─── Status Table ────────────────────────────────────────────────────────────
+
+state_clr(int st) =>
+    st==1?color.red : st==2?color.orange : st==3?color.green : color.gray
+
+state_lbl(int st) =>
+    st==0?"Wait" : st==1?"Ovrsld" : st==2?"Recov" : "Confmd"
+
+var table tbl = table.new(position.top_right, 3, 36,
+     bgcolor=color.rgb(20,20,20), border_color=color.gray, border_width=1)
+
+syms_arr = array.from(i01,i02,i03,i04,i05,i06,i07,i08,i09,i10,
+                      i11,i12,i13,i14,i15,i16,i17,i18,i19,i20,
+                      i21,i22,i23,i24,i25,i26,i27,i28,i29,i30,
+                      i31,i32,i33,i34,i35)
+sts_arr  = array.from(s01,s02,s03,s04,s05,s06,s07,s08,s09,s10,
+                      s11,s12,s13,s14,s15,s16,s17,s18,s19,s20,
+                      s21,s22,s23,s24,s25,s26,s27,s28,s29,s30,
+                      s31,s32,s33,s34,s35)
+rsis_arr = array.from(r01,r02,r03,r04,r05,r06,r07,r08,r09,r10,
+                      r11,r12,r13,r14,r15,r16,r17,r18,r19,r20,
+                      r21,r22,r23,r24,r25,r26,r27,r28,r29,r30,
+                      r31,r32,r33,r34,r35)
+
+if barstate.islast
+    table.cell(tbl,0,0,"Symbol",  text_color=color.gray, text_size=size.small, bgcolor=color.rgb(40,40,40))
+    table.cell(tbl,1,0,"State",   text_color=color.gray, text_size=size.small, bgcolor=color.rgb(40,40,40))
+    table.cell(tbl,2,0,"RSI 12H", text_color=color.gray, text_size=size.small, bgcolor=color.rgb(40,40,40))
+    for i = 0 to 34
+        sym = array.get(syms_arr, i)
+        st  = array.get(sts_arr,  i)
+        rsi = array.get(rsis_arr, i)
+        row = i + 1
+        if sym != ""
+            table.cell(tbl,0,row, sym,            text_color=color.white,       text_size=size.tiny)
+            table.cell(tbl,1,row, state_lbl(st),  text_color=state_clr(st),     text_size=size.tiny)
+            table.cell(tbl,2,row, not na(rsi) ? str.tostring(rsi,"#.#") : "n/a",
+                 text_color=color.white, text_size=size.tiny)
