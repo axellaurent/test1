@@ -9,7 +9,7 @@ string SYM1 = "BINANCE:BTCUSDT"
 string SYM2 = "BINANCE:ETHUSDT"
 string SYM3 = "BINANCE:SOLUSDT"
 string SYM4 = "NASDAQ:AAPL"
-string SYM5 = "NYSE:SPY"
+string SYM5 = "AMEX:SPY"
 
 // ─── Helper: fmt_vol ─────────────────────────────────────────────────────────
 
@@ -73,7 +73,7 @@ if new_12h_bar
     s2 := state_transition(s2, r2, v2, SYM2)
     s3 := state_transition(s3, r3, v3, SYM3)
     s4 := state_transition(s4, r4, v4, SYM4)
-    s5 := state_transition(s5, r5, v5, SYM5)
+    s5 := state_transition(s5, r5, v5, SYM5)  // AMEX:SPY
 
 // ─── Status Table ────────────────────────────────────────────────────────────
 
