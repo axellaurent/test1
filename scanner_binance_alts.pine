@@ -48,8 +48,8 @@ state_transition(int st, float rsi, float vol, string sym) =>
 [r06,v06] = request.security("BINANCE:SEIUSDT",   "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off,ignore_invalid_symbol=true)
 [r07,v07] = request.security("BINANCE:INJUSDT",   "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off,ignore_invalid_symbol=true)
 [r08,v08] = request.security("BINANCE:TIAUSDT",   "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off,ignore_invalid_symbol=true)
-[r09,v09] = request.security("BINANCE:RNDRUSDT",  "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off,ignore_invalid_symbol=true)
-[r10,v10] = request.security("BINANCE:FTMUSDT",   "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off,ignore_invalid_symbol=true)
+[r09,v09] = request.security("BINANCE:RENDERUSDT",  "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off,ignore_invalid_symbol=true)
+[r10,v10] = request.security("BINANCE:SUSDT",   "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off,ignore_invalid_symbol=true)
 [r11,v11] = request.security("BINANCE:ALGOUSDT",  "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off,ignore_invalid_symbol=true)
 [r12,v12] = request.security("BINANCE:VETUSDT",   "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off,ignore_invalid_symbol=true)
 [r13,v13] = request.security("BINANCE:ICPUSDT",   "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off,ignore_invalid_symbol=true)
@@ -81,8 +81,8 @@ if new_12h_bar
     s06:=state_transition(s06,r06,v06,"BINANCE:SEIUSDT")
     s07:=state_transition(s07,r07,v07,"BINANCE:INJUSDT")
     s08:=state_transition(s08,r08,v08,"BINANCE:TIAUSDT")
-    s09:=state_transition(s09,r09,v09,"BINANCE:RNDRUSDT")
-    s10:=state_transition(s10,r10,v10,"BINANCE:FTMUSDT")
+    s09:=state_transition(s09,r09,v09,"BINANCE:RENDERUSDT")
+    s10:=state_transition(s10,r10,v10,"BINANCE:SUSDT")
     s11:=state_transition(s11,r11,v11,"BINANCE:ALGOUSDT")
     s12:=state_transition(s12,r12,v12,"BINANCE:VETUSDT")
     s13:=state_transition(s13,r13,v13,"BINANCE:ICPUSDT")
@@ -111,7 +111,7 @@ if barstate.islast
     table.cell(tbl,2,0,"RSI 12H",              text_color=color.gray,text_size=size.small,bgcolor=color.rgb(40,40,40))
 
     tickers = array.from("LINKUSDT","APTUSDT","ARBUSDT","OPUSDT","SUIUSDT",
-                         "SEIUSDT","INJUSDT","TIAUSDT","RNDRUSDT","FTMUSDT",
+                         "SEIUSDT","INJUSDT","TIAUSDT","RENDERUSDT","SUSDT",
                          "ALGOUSDT","VETUSDT","ICPUSDT","HBARUSDT","EGLDUSDT",
                          "THETAUSDT","SANDUSDT","AXSUSDT","CHZUSDT","GALAUSDT")
     sts  = array.from(s01,s02,s03,s04,s05,s06,s07,s08,s09,s10,
