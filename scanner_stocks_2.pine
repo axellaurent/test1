@@ -44,23 +44,23 @@ state_transition(int st, float rsi, float vol, string sym) =>
 // ─── 12H RSI + Volume ────────────────────────────────────────────────────────
 
 // Finance
-[r01,v01] = request.security("NYSE:JPM",    "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
-[r02,v02] = request.security("NYSE:BAC",    "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
-[r03,v03] = request.security("NYSE:GS",     "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
-[r04,v04] = request.security("NYSE:MS",     "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
-[r05,v05] = request.security("NYSE:WFC",    "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
+[r01,v01] = request.security("NYSE:JPM",    "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off,ignore_invalid_symbol=true)
+[r02,v02] = request.security("NYSE:BAC",    "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off,ignore_invalid_symbol=true)
+[r03,v03] = request.security("NYSE:GS",     "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off,ignore_invalid_symbol=true)
+[r04,v04] = request.security("NYSE:MS",     "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off,ignore_invalid_symbol=true)
+[r05,v05] = request.security("NYSE:WFC",    "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off,ignore_invalid_symbol=true)
 // Healthcare
-[r06,v06] = request.security("NYSE:JNJ",    "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
-[r07,v07] = request.security("NYSE:UNH",    "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
-[r08,v08] = request.security("NYSE:PFE",    "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
-[r09,v09] = request.security("NASDAQ:MRNA", "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
-[r10,v10] = request.security("NYSE:ABT",    "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
+[r06,v06] = request.security("NYSE:JNJ",    "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off,ignore_invalid_symbol=true)
+[r07,v07] = request.security("NYSE:UNH",    "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off,ignore_invalid_symbol=true)
+[r08,v08] = request.security("NYSE:PFE",    "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off,ignore_invalid_symbol=true)
+[r09,v09] = request.security("NASDAQ:MRNA", "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off,ignore_invalid_symbol=true)
+[r10,v10] = request.security("NYSE:ABT",    "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off,ignore_invalid_symbol=true)
 // Industrial / Aerospace
-[r11,v11] = request.security("NYSE:BA",     "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
-[r12,v12] = request.security("NYSE:CAT",    "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
-[r13,v13] = request.security("NYSE:GE",     "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
-[r14,v14] = request.security("NASDAQ:HON",  "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
-[r15,v15] = request.security("NYSE:LMT",    "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
+[r11,v11] = request.security("NYSE:BA",     "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off,ignore_invalid_symbol=true)
+[r12,v12] = request.security("NYSE:CAT",    "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off,ignore_invalid_symbol=true)
+[r13,v13] = request.security("NYSE:GE",     "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off,ignore_invalid_symbol=true)
+[r14,v14] = request.security("NASDAQ:HON",  "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off,ignore_invalid_symbol=true)
+[r15,v15] = request.security("NYSE:LMT",    "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off,ignore_invalid_symbol=true)
 
 // ─── State Variables ─────────────────────────────────────────────────────────
 
@@ -115,6 +115,6 @@ if barstate.islast
         st  = array.get(sts,  i)
         rsi = array.get(rsis, i)
         table.cell(tbl,0,i+1,array.get(tickers,i), text_color=color.white,   text_size=size.tiny)
-        table.cell(tbl,1,i+1,state_lbl(st),        text_color=state_clr(st), text_size=size.tiny)
+        table.cell(tbl,1,i+1,na(rsi)?"INVALID":state_lbl(st), text_color=na(rsi)?color.fuchsia:state_clr(st), text_size=size.tiny)
         table.cell(tbl,2,i+1,not na(rsi)?str.tostring(rsi,"#.#"):"n/a",
              text_color=color.white, text_size=size.tiny)

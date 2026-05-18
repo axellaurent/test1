@@ -32,8 +32,9 @@ fmt_vol(float v) =>
 [rsi_12h, vol_12h] = request.security(
      syminfo.tickerid, "720",
      [ta.rsi(close, 14), volume * close],
-     lookahead = barmerge.lookahead_off,
-     gaps      = barmerge.gaps_off)
+     lookahead             = barmerge.lookahead_off,
+     gaps                  = barmerge.gaps_off,
+     ignore_invalid_symbol = true)
 
 // True on the first chart bar after each 12H bar closes
 new_12h_bar = ta.change(time("720")) != 0

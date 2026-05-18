@@ -40,21 +40,21 @@ state_transition(int st, float rsi, float vol, string sym) =>
 
 // ─── 12H RSI + Volume ────────────────────────────────────────────────────────
 
-[r01,v01] = request.security("OKX:BTCUSDT",  "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
-[r02,v02] = request.security("OKX:ETHUSDT",  "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
-[r03,v03] = request.security("OKX:SOLUSDT",  "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
-[r04,v04] = request.security("OKX:XRPUSDT",  "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
-[r05,v05] = request.security("OKX:DOGEUSDT", "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
-[r06,v06] = request.security("OKX:ADAUSDT",  "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
-[r07,v07] = request.security("OKX:AVAXUSDT", "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
-[r08,v08] = request.security("OKX:DOTUSDT",  "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
-[r09,v09] = request.security("OKX:LINKUSDT", "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
-[r10,v10] = request.security("OKX:UNIUSDT",  "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
-[r11,v11] = request.security("OKX:ATOMUSDT", "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
-[r12,v12] = request.security("OKX:NEARUSDT", "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
-[r13,v13] = request.security("OKX:APTUSDT",  "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
-[r14,v14] = request.security("OKX:ARBUSDT",  "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
-[r15,v15] = request.security("OKX:OPUSDT",   "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
+[r01,v01] = request.security("OKX:BTCUSDT",  "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off,ignore_invalid_symbol=true)
+[r02,v02] = request.security("OKX:ETHUSDT",  "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off,ignore_invalid_symbol=true)
+[r03,v03] = request.security("OKX:SOLUSDT",  "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off,ignore_invalid_symbol=true)
+[r04,v04] = request.security("OKX:XRPUSDT",  "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off,ignore_invalid_symbol=true)
+[r05,v05] = request.security("OKX:DOGEUSDT", "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off,ignore_invalid_symbol=true)
+[r06,v06] = request.security("OKX:ADAUSDT",  "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off,ignore_invalid_symbol=true)
+[r07,v07] = request.security("OKX:AVAXUSDT", "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off,ignore_invalid_symbol=true)
+[r08,v08] = request.security("OKX:DOTUSDT",  "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off,ignore_invalid_symbol=true)
+[r09,v09] = request.security("OKX:LINKUSDT", "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off,ignore_invalid_symbol=true)
+[r10,v10] = request.security("OKX:UNIUSDT",  "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off,ignore_invalid_symbol=true)
+[r11,v11] = request.security("OKX:ATOMUSDT", "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off,ignore_invalid_symbol=true)
+[r12,v12] = request.security("OKX:NEARUSDT", "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off,ignore_invalid_symbol=true)
+[r13,v13] = request.security("OKX:APTUSDT",  "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off,ignore_invalid_symbol=true)
+[r14,v14] = request.security("OKX:ARBUSDT",  "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off,ignore_invalid_symbol=true)
+[r15,v15] = request.security("OKX:OPUSDT",   "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off,ignore_invalid_symbol=true)
 
 // ─── State Variables ─────────────────────────────────────────────────────────
 
@@ -109,6 +109,6 @@ if barstate.islast
         st  = array.get(sts,  i)
         rsi = array.get(rsis, i)
         table.cell(tbl,0,i+1,array.get(tickers,i), text_color=color.white,   text_size=size.tiny)
-        table.cell(tbl,1,i+1,state_lbl(st),        text_color=state_clr(st), text_size=size.tiny)
+        table.cell(tbl,1,i+1,na(rsi)?"INVALID":state_lbl(st), text_color=na(rsi)?color.fuchsia:state_clr(st), text_size=size.tiny)
         table.cell(tbl,2,i+1,not na(rsi)?str.tostring(rsi,"#.#"):"n/a",
              text_color=color.white, text_size=size.tiny)

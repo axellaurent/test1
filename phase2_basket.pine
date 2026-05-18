@@ -50,11 +50,11 @@ state_transition(int st, float rsi, float vol, string sym) =>
 
 // ─── 12H RSI + Volume per Symbol ─────────────────────────────────────────────
 
-[r1, v1] = request.security(SYM1, "720", [ta.rsi(close, 14), volume * close], lookahead=barmerge.lookahead_off, gaps=barmerge.gaps_off)
-[r2, v2] = request.security(SYM2, "720", [ta.rsi(close, 14), volume * close], lookahead=barmerge.lookahead_off, gaps=barmerge.gaps_off)
-[r3, v3] = request.security(SYM3, "720", [ta.rsi(close, 14), volume * close], lookahead=barmerge.lookahead_off, gaps=barmerge.gaps_off)
-[r4, v4] = request.security(SYM4, "720", [ta.rsi(close, 14), volume * close], lookahead=barmerge.lookahead_off, gaps=barmerge.gaps_off)
-[r5, v5] = request.security(SYM5, "720", [ta.rsi(close, 14), volume * close], lookahead=barmerge.lookahead_off, gaps=barmerge.gaps_off)
+[r1, v1] = request.security(SYM1, "720", [ta.rsi(close, 14), volume * close], lookahead=barmerge.lookahead_off, gaps=barmerge.gaps_off, ignore_invalid_symbol=true)
+[r2, v2] = request.security(SYM2, "720", [ta.rsi(close, 14), volume * close], lookahead=barmerge.lookahead_off, gaps=barmerge.gaps_off, ignore_invalid_symbol=true)
+[r3, v3] = request.security(SYM3, "720", [ta.rsi(close, 14), volume * close], lookahead=barmerge.lookahead_off, gaps=barmerge.gaps_off, ignore_invalid_symbol=true)
+[r4, v4] = request.security(SYM4, "720", [ta.rsi(close, 14), volume * close], lookahead=barmerge.lookahead_off, gaps=barmerge.gaps_off, ignore_invalid_symbol=true)
+[r5, v5] = request.security(SYM5, "720", [ta.rsi(close, 14), volume * close], lookahead=barmerge.lookahead_off, gaps=barmerge.gaps_off, ignore_invalid_symbol=true)
 
 // ─── Per-Symbol State (persistent across bars) ───────────────────────────────
 
@@ -116,8 +116,8 @@ if barstate.islast
         sym = array.get(syms, i)
         st  = array.get(sts,  i)
         rsi = array.get(rsis, i)
-        clr = state_color(st)
-        lbl = state_label(st)
+        clr = na(rsi) ? color.fuchsia : state_color(st)
+        lbl = na(rsi) ? "INVALID"     : state_label(st)
         row = i + 1
         table.cell(tbl, 0, row, sym, text_color=color.white, text_size=size.small)
         table.cell(tbl, 1, row, lbl, text_color=clr,         text_size=size.small)

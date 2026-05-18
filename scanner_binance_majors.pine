@@ -40,26 +40,26 @@ state_transition(int st, float rsi, float vol, string sym) =>
 
 // ─── 12H RSI + Volume ────────────────────────────────────────────────────────
 
-[r01,v01] = request.security("BINANCE:BTCUSDT",   "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
-[r02,v02] = request.security("BINANCE:ETHUSDT",   "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
-[r03,v03] = request.security("BINANCE:BNBUSDT",   "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
-[r04,v04] = request.security("BINANCE:SOLUSDT",   "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
-[r05,v05] = request.security("BINANCE:XRPUSDT",   "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
-[r06,v06] = request.security("BINANCE:ADAUSDT",   "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
-[r07,v07] = request.security("BINANCE:DOGEUSDT",  "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
-[r08,v08] = request.security("BINANCE:AVAXUSDT",  "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
-[r09,v09] = request.security("BINANCE:TRXUSDT",   "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
-[r10,v10] = request.security("BINANCE:DOTUSDT",   "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
-[r11,v11] = request.security("BINANCE:MATICUSDT", "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
-[r12,v12] = request.security("BINANCE:LTCUSDT",   "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
-[r13,v13] = request.security("BINANCE:BCHUSDT",   "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
-[r14,v14] = request.security("BINANCE:UNIUSDT",   "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
-[r15,v15] = request.security("BINANCE:ATOMUSDT",  "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
-[r16,v16] = request.security("BINANCE:ETCUSDT",   "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
-[r17,v17] = request.security("BINANCE:XLMUSDT",   "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
-[r18,v18] = request.security("BINANCE:NEARUSDT",  "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
-[r19,v19] = request.security("BINANCE:FILUSDT",   "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
-[r20,v20] = request.security("BINANCE:AAVEUSDT",  "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off)
+[r01,v01] = request.security("BINANCE:BTCUSDT",   "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off,ignore_invalid_symbol=true)
+[r02,v02] = request.security("BINANCE:ETHUSDT",   "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off,ignore_invalid_symbol=true)
+[r03,v03] = request.security("BINANCE:BNBUSDT",   "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off,ignore_invalid_symbol=true)
+[r04,v04] = request.security("BINANCE:SOLUSDT",   "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off,ignore_invalid_symbol=true)
+[r05,v05] = request.security("BINANCE:XRPUSDT",   "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off,ignore_invalid_symbol=true)
+[r06,v06] = request.security("BINANCE:ADAUSDT",   "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off,ignore_invalid_symbol=true)
+[r07,v07] = request.security("BINANCE:DOGEUSDT",  "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off,ignore_invalid_symbol=true)
+[r08,v08] = request.security("BINANCE:AVAXUSDT",  "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off,ignore_invalid_symbol=true)
+[r09,v09] = request.security("BINANCE:TRXUSDT",   "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off,ignore_invalid_symbol=true)
+[r10,v10] = request.security("BINANCE:DOTUSDT",   "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off,ignore_invalid_symbol=true)
+[r11,v11] = request.security("BINANCE:POLUSDT", "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off,ignore_invalid_symbol=true)
+[r12,v12] = request.security("BINANCE:LTCUSDT",   "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off,ignore_invalid_symbol=true)
+[r13,v13] = request.security("BINANCE:BCHUSDT",   "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off,ignore_invalid_symbol=true)
+[r14,v14] = request.security("BINANCE:UNIUSDT",   "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off,ignore_invalid_symbol=true)
+[r15,v15] = request.security("BINANCE:ATOMUSDT",  "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off,ignore_invalid_symbol=true)
+[r16,v16] = request.security("BINANCE:ETCUSDT",   "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off,ignore_invalid_symbol=true)
+[r17,v17] = request.security("BINANCE:XLMUSDT",   "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off,ignore_invalid_symbol=true)
+[r18,v18] = request.security("BINANCE:NEARUSDT",  "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off,ignore_invalid_symbol=true)
+[r19,v19] = request.security("BINANCE:FILUSDT",   "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off,ignore_invalid_symbol=true)
+[r20,v20] = request.security("BINANCE:AAVEUSDT",  "720",[ta.rsi(close,14),volume*close],lookahead=barmerge.lookahead_off,gaps=barmerge.gaps_off,ignore_invalid_symbol=true)
 
 // ─── State Variables ─────────────────────────────────────────────────────────
 
@@ -83,7 +83,7 @@ if new_12h_bar
     s08:=state_transition(s08,r08,v08,"BINANCE:AVAXUSDT")
     s09:=state_transition(s09,r09,v09,"BINANCE:TRXUSDT")
     s10:=state_transition(s10,r10,v10,"BINANCE:DOTUSDT")
-    s11:=state_transition(s11,r11,v11,"BINANCE:MATICUSDT")
+    s11:=state_transition(s11,r11,v11,"BINANCE:POLUSDT")
     s12:=state_transition(s12,r12,v12,"BINANCE:LTCUSDT")
     s13:=state_transition(s13,r13,v13,"BINANCE:BCHUSDT")
     s14:=state_transition(s14,r14,v14,"BINANCE:UNIUSDT")
@@ -112,7 +112,7 @@ if barstate.islast
 
     tickers = array.from("BTCUSDT","ETHUSDT","BNBUSDT","SOLUSDT","XRPUSDT",
                          "ADAUSDT","DOGEUSDT","AVAXUSDT","TRXUSDT","DOTUSDT",
-                         "MATICUSDT","LTCUSDT","BCHUSDT","UNIUSDT","ATOMUSDT",
+                         "POLUSDT","LTCUSDT","BCHUSDT","UNIUSDT","ATOMUSDT",
                          "ETCUSDT","XLMUSDT","NEARUSDT","FILUSDT","AAVEUSDT")
     sts   = array.from(s01,s02,s03,s04,s05,s06,s07,s08,s09,s10,
                        s11,s12,s13,s14,s15,s16,s17,s18,s19,s20)
@@ -123,6 +123,6 @@ if barstate.islast
         st  = array.get(sts,  i)
         rsi = array.get(rsis, i)
         table.cell(tbl,0,i+1,array.get(tickers,i), text_color=color.white,   text_size=size.tiny)
-        table.cell(tbl,1,i+1,state_lbl(st),        text_color=state_clr(st), text_size=size.tiny)
+        table.cell(tbl,1,i+1,na(rsi)?"INVALID":state_lbl(st), text_color=na(rsi)?color.fuchsia:state_clr(st), text_size=size.tiny)
         table.cell(tbl,2,i+1,not na(rsi)?str.tostring(rsi,"#.#"):"n/a",
              text_color=color.white, text_size=size.tiny)
